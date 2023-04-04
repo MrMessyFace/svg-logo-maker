@@ -10,7 +10,7 @@ I used Node.js and Inquirer along with Jest for testing.
 
 ## Usage
 
-
+When a user opens the directory in their command line, they would install Inquirer then use Node.js on the index.js file. This would ask a series of questions that will determine the shape, text, and colors of the logo in the SVG file that will be generated.
 
 ## Credits
 
