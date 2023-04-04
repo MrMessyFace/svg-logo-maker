@@ -1,77 +1,71 @@
-const inquirer = require("inquirer");
-const fs = require("fs");
+const fs = require('fs');
+const inquirer = require('inquirer');
+const { Circle, Triangle, Square } = require("./lib/shapes");
 
-class LogoGen {
-  constructor() {
-    this.text = "";
-    this.textColor = "";
-    this.shape = "";
-    this.shapeColor = "";
-  }
+const questions = [
+  "Enter text for the logo:",
+  "Enter a text color:",
+  "Select a shape for the logo:",
+  "Enter a shape color:"
+];
 
-  async getUserInput() {
-    const textInput = await inquirer.prompt({
-      name: "text",
-      message: "Enter up to 3 characters:",
-      validate: (input) => input.length <= 3,
-    });
-    this.logoText = textInput.text;
+function writeToFile(fileName, data) {
+  fs.writeFile(fileName, data, (err) => {
+    if (err) {
+      console.log("Hmm... Didn't work.", err);
+    } else {
+      console.log("SVG Logo successfully generated!");
+    };
+  });
+};
 
-    const textColorInput = await inquirer.prompt({
-      name: "color",
-      message: "Enter the text color:",
-      default: "#000000",
-    });
-    this.textColor = textColorInput.color;
+function init() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      message: questions[0],
+      name: 'text',
+      default: '(Must not be more than 3 characters)'
+    },
+    {
+      type: 'input',
+      message: questions[1],
+      name: 'textColor'
+    },
+    {
+      type: 'list',
+      message: questions[2],
+      name: 'shape',
+      choices: [
+        'circle',
+        'square',
+        'triangle'
+      ]
+    },
+    {
+      type: 'input',
+      message: questions[3],
+      name: 'shapeColor'
+    },
+  ])
+  .then(answers => {
+    // console.log(answers);
+    let shape;
 
-    const shapeInput = await inquirer.prompt({
-      type: "list",
-      name: "shape",
-      message: "Choose a shape:",
-      choices: ["Circle", "Triangle", "Square"],
-    });
-    this.shape = shapeInput.shape.toLowerCase();
+    if(answers.shape == "circle") {
+      shape = new Circle(answers.text, answers.textColor, answers.shapeColor)
+    };
 
-    const shapeColorInput = await inquirer.prompt({
-      name: "color",
-      message: `Enter the ${this.shape} color:`,
-      default: "#ffffff",
-    });
-    this.shapeColor = shapeColorInput.color;
-  }
+    if(answers.shape == "square") {
+      shape = new Square(answers.text, answers.textColor, answers.shapeColor)
+    };
 
-  generateSVG() {
-    let shapeContent;
-    switch (this.shape) {
-      case "circle":
-        shapeContent = `<circle cx="25" cy="25" r="25" fill="${this.shapeColor}"/>`;
-        break;
-      case "triangle":
-        shapeContent = `<polygon points="25,5 45,45 5,45" fill="${this.shapeColor}"/>`;
-        break;
-      case "square":
-        shapeContent = `<rect width="40" height="40" x="5" y="5" fill="${this.shapeColor}"/>`;
-        break;
-      default:
-        shapeContent = "";
-        break;
-    }
+    if(answers.shape == "triangle") {
+      shape = new Triangle(answers.text, answers.textColor, answers.shapeColor)
+    };
+    
+    writeToFile("logo.svg", shape.render());
+  });
+};
 
-    const svgContent = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 50 50">
-        ${shapeContent}
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="${this.textColor}">${this.logoText}</text>
-    </svg>`;
-    fs.writeFileSync("logo.svg", svgContent);
-    console.log("Generated logo.svg");
-  }
-}
-
-async function run() {
-  const logoGenerator = new LogoGen();
-  await logoGenerator.getUserInput();
-  logoGenerator.generateSVG();
-}
-
-run();
-module.exports = LogoGen;
+init();
