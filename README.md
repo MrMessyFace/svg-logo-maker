@@ -14,4 +14,4 @@ I used Node.js and Inquirer along with Jest for testing.
 
 ## Credits
 
-See how it works in this [video demonstration](...).
+See how it works in this [video demonstration](https://drive.google.com/file/d/1dshjHGLKM7oI8R-j7-K8-0m57R6mfw_i/view).
