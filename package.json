@@ -3,17 +3,12 @@
   "version": "1.0.0",
   "description": "Week 10 Homework Challenge from Northwestern Coding Bootcamp.",
   "main": "index.js",
-  "directories": {
-    "example": "examples",
-    "lib": "lib"
-  },
   "scripts": {
     "test": "jest"
   },
-  "private": true,
   "keywords": [],
-  "author": "",
-  "license": "UNLICENSED",
+  "author": "Jessie Galindo",
+  "license": "ISC",
   "dependencies": {
     "inquirer": "^8.2.4"
   },
