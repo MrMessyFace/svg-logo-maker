@@ -48,24 +48,24 @@ function init() {
       name: 'shapeColor'
     },
   ])
-  .then(answers => {
-    // console.log(answers);
-    let shape;
+    .then(answers => {
+      // console.log(answers);
+      let shape;
 
-    if(answers.shape == "circle") {
-      shape = new Circle(answers.text, answers.textColor, answers.shapeColor)
-    };
+      if (answers.shape == "circle") {
+        shape = new Circle(answers.text, answers.textColor, answers.shapeColor)
+      };
 
-    if(answers.shape == "square") {
-      shape = new Square(answers.text, answers.textColor, answers.shapeColor)
-    };
+      if (answers.shape == "square") {
+        shape = new Square(answers.text, answers.textColor, answers.shapeColor)
+      };
 
-    if(answers.shape == "triangle") {
-      shape = new Triangle(answers.text, answers.textColor, answers.shapeColor)
-    };
-    
-    writeToFile("logo.svg", shape.render());
-  });
+      if (answers.shape == "triangle") {
+        shape = new Triangle(answers.text, answers.textColor, answers.shapeColor)
+      };
+
+      writeToFile("logo.svg", shape.render());
+    });
 };
 
 init();
