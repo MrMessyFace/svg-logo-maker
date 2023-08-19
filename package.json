@@ -1,7 +1,7 @@
 {
   "name": "svg-logo-maker",
   "version": "1.0.0",
-  "description": "Week 10 Homework Challenge from Northwestern Coding Bootcamp.",
+  "description": "Week 10 Module Homework Challenge from the Northwestern University Full Stack Coding Bootcamp.",
   "main": "index.js",
   "scripts": {
     "test": "jest"
